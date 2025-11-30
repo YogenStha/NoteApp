@@ -1,0 +1,82 @@
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
+import NoteList from "./components/NoteList";
+import AddNote from "./components/AddNote";
+
+const App = () => {
+    const [notes, setNotes] = useState([]);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+
+    useEffect(() => {
+  
+        axios
+            .get("http://localhost:5000/api/notes")
+            .then((response) => setNotes(response.data))
+            .catch((error) => console.error("Error fetching notes:", error));
+    }, []);
+
+    const handleAddNote = () => {
+
+        axios
+            .post("http://localhost:5000/api/notes", { title, content })
+            .then((response) => {
+                setNotes([...notes, response.data]);
+                setTitle("");
+                setContent("");
+            })
+            .catch((error) => console.error("Error adding note:", error));
+    };
+    const handleEditNote = (id, updatedTitle, updatedContent) => {
+        axios
+            .put(`http://localhost:5000/api/notes/${id}`, {
+                title: updatedTitle,
+                content: updatedContent,
+            })
+            .then((response) => {
+                const updatedNotes = notes.map((note) =>
+                    note._id === id ? response.data : note
+                );
+                setNotes(updatedNotes);
+            })
+            .catch((error) => console.error("Error updating note:", error));
+    };
+
+    const handleDeleteNote = (id) => {
+        axios
+            .delete(`http://localhost:5000/api/notes/${id}`)
+            .then((response) => {
+                const updatedNotes = notes.filter((note) => note._id !== id);
+                setNotes(updatedNotes);
+            })
+            .catch((error) => console.error("Error deleting note:", error));
+    };
+
+    return (
+        <div className="w-full max-w-2xl mx-auto my-5 p-5 bg-white shadow-md rounded 
+                sm:p-6 md:p-8 lg:p-10">
+  <h1 className="text-gray-800 text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-center">
+    Notes App
+  </h1>
+
+  <AddNote
+    title={title}
+    setTitle={setTitle}
+    content={content}
+    setContent={setContent}
+    onAddNote={handleAddNote}
+  />
+
+  <NoteList
+    notes={notes}
+    onEditNote={handleEditNote}
+    onDeleteNote={handleDeleteNote}
+  />
+</div>
+
+    );
+};
+
+export default App;
