@@ -12,7 +12,7 @@ function Register() {
     e.preventDefault();
     try {
       // Call your backend register API
-      await axios.post("http://localhost:5000/api/v1/register", {
+      await axios.post("https://noteappback-kexq.onrender.com/api/v1/register", {
         name,
         email,
         password,
