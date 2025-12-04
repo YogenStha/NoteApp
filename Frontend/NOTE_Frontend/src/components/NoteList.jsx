@@ -3,36 +3,42 @@
 import React from "react";
 
 const NoteList = ({ notes, onEditNote, onDeleteNote }) => {
-    return (
-        <ul>
-            {notes.map((note) => (
-                <li key={note._id}>
-                    <strong>{note.title}</strong>
-                    <p>{note.content}</p>
+  return (
+    <ul className="space-y-4">
+      {notes.map((note) => (
+        <li
+          key={note._id}
+          className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
+        >
+          <strong className="block text-lg font-semibold text-gray-800 mb-1">
+            {note.title}
+          </strong>
+          <p className="text-gray-600 mb-3">{note.content}</p>
 
-                    <button
-                        className="button2"
-                        style={{ marginRight: "15px" }}
-                        onClick={() =>
-                            onEditNote(
-                                note._id,
-                                prompt("Enter updated title:", note.title),
-                                prompt("Enter updated content:", note.content)
-                            )
-                        }
-                    >
-                        Edit
-                    </button>
-                    <button
-                        className="button2"
-                        onClick={() => onDeleteNote(note._id)}
-                    >
-                        Delete
-                    </button>
-                </li>
-            ))}
-        </ul>
-    );
+          <div className="flex space-x-3">
+            <button
+              className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-200"
+              onClick={() =>
+                onEditNote(
+                  note._id,
+                  prompt("Enter updated title:", note.title),
+                  prompt("Enter updated content:", note.content)
+                )
+              }
+            >
+              Edit
+            </button>
+            <button
+              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-200"
+              onClick={() => onDeleteNote(note._id)}
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default NoteList;
