@@ -9,7 +9,7 @@ async function startExpress () {
   const PORT = process.env.PORT||5000;
 
   // middleware
-  app.use(cors({ origin: "http://localhost:5173" }));
+  app.use(cors({ origin: "https://noteapp-frontend-gell.onrender.com" }));
   app.use(bodyparser.json());
   mainRouter(app)
 // Connection
