@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"; 
-import "./App.css";
 import NoteList from "./components/NoteList.jsx";
 import AddNote from "./components/AddNote.jsx";
 import Login from "./components/Login.jsx";
