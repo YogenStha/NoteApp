@@ -19,8 +19,6 @@ function Login() {
     try {
       const res = await axios.post("https://noteapp-backend-kbzk.onrender.com/api/v1/login",
          { email, password },
-         {withCredentials: true }
-
       );
 
       if (res.status === 200) {
