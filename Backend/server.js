@@ -6,7 +6,7 @@ const connectToDatabase = require("./database/database.js");
 
 async function startExpress () {
   const app = express();
-  const PORT = 5000;
+  const PORT = process.env.PORT||5000;
 
   // middleware
   app.use(cors({ origin: "http://localhost:5173" }));
