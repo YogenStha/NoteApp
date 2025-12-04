@@ -17,10 +17,11 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://noteappback-kexq.onrender.com/api/v1/login", {
-        email,
-        password,
-      });
+      const res = await axios.post("https://noteapp-backend-kbzk.onrender.com/api/v1/login",
+         { email, password },
+         {withCredentials: true }
+
+      );
 
       if (res.status === 200) {
         console.log("Login successful:", res.data);
